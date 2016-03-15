@@ -1,0 +1,99 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Rotate divs</title>
+	<style>
+	#wrapper {
+		position: relative;
+		display: inline-block;
+		width: 1024px;
+		height: 768px;
+		top: 150px;
+		left: 300px;
+		padding-right: 0px;
+	}
+	.spinningDiv {
+          width: 70px;
+          height: 70px;
+          border-radius: 40px;
+	}
+	</style>
+</head>
+<body>
+<form action="#" name="frmDivs">
+<br />
+    <input type="button" value="Generate" onclick="startMotion()">&nbsp;
+    <input type="button" value="Stop" onclick="stopMotion()">
+</form>
+<div id="wrapper">
+</div>
+	<script>
+	    var wrapper = document.getElementById("wrapper");
+	    var count = 5;
+	    var divs = document.getElementsByClassName("spinningDiv");
+	    var timer;
+	    var maxWidth = screen.width - 100;
+	    var maxHeight = screen.height - 300;
+	    var radius = 150;
+	    var angleStep = 5;
+	    var doublePI = 2 * Math.PI;
+	    var currentAngle = 0;
+
+	    generateMotionDivs(count);
+
+	    function generateMotionDivs(count) {
+
+	        for (var i = 0; i < count; i++) {
+	            var shinyDiv = document.createElement("div");
+	            shinyDiv.classList.add("spinningDiv");
+	            makeDivStyle(shinyDiv);
+	            wrapper.appendChild(shinyDiv);
+	        }
+	    }
+
+	    function makeDivStyle(shinyDiv) {
+	        shinyDiv.style.position = "absolute";
+
+	        currentAngle += angleStep;
+
+	        var topPos = parseInt(maxHeight / 5);
+	        var x = topPos + Math.cos(currentAngle) * radius;
+	        shinyDiv.style.top = x + "px";
+
+	        var left = parseInt(maxWidth / 5);
+	        var y = left + Math.sin(currentAngle) * radius;
+	        shinyDiv.style.left = y + "px";
+
+	        shinyDiv.style.backgroundColor = "rgb(15, 140, 210)";
+	    }
+
+	    function startMotion(e) {
+	        if (!e) e = window.event;
+
+	        timer = setInterval(function () {
+	            for (var i = 0, len = divs.length; i < len; i++) {
+	                makeDivStyle(divs[i]);
+	            }
+	        }, 100);
+
+	        if (e.preventDefault) {
+	            e.preventDefault();
+	        }
+	        return false;
+	    }
+
+	    function stopMotion(e) {
+	        if (!e) e = window.event;
+
+	        clearInterval(timer);
+	        document.getElementById("btn-stop-shiny").disabled = true;
+
+	        if (e.preventDefault) {
+	            e.preventDefault();
+	        }
+	        return false;
+	    }
+
+	</script>
+</body>
+</html>

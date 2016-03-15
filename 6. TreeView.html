@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+       
+    <title>Tree View</title>
+    <style>
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            padding-left: 25px;
+            background: url(arrow.jpg) 0 0 no-repeat;
+        }
+
+        li:hover {
+            cursor: pointer;
+        }
+
+        .childrenVisible > ul {
+            display: block;
+        }
+
+        .childrenInvisible > ul {
+            display: none;
+        }
+    </style> 
+</head>
+<body>
+    <ul>
+        <li class="childrenVisible">List item
+            <ul>
+                <li class="childrenInvisible">Sublist item</li>
+                <li class="childrenInvisible">Sublist item</li>
+                <li class="childrenInvisible">Sublist item
+                    <ul>
+                        <li class="childrenInvisible">Sublist item</li>
+                        <li class="childrenInvisible">Sublist item</li>
+                        <li class="childrenInvisible">Sublist item</li>
+                        <li class="childrenInvisible">Sublist item
+                            <ul>
+                                <li class="childrenInvisible">Sublist item</li>
+                                <li class="childrenInvisible">Sublist item</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="childrenVisible">List item</li>
+        <li class="childrenVisible">List item
+            <ul>
+                <li class="childrenInvisible">Sublist item</li>
+                <li class="childrenInvisible">Sublist item
+                    <ul>
+                        <li class="childrenInvisible">Sublist item</li>
+                        <li class="childrenInvisible">Sublist item</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="childrenInvisible">List item</li>
+    </ul>        
+    <script src="jquery-1.9.1.min.js"></script>
+    <script>
+        window.onload = function () {
+            $("li").addClass('childrenInvisible');
+
+            $("li").click(function (e) {
+                e.stopPropagation();
+
+                if ($(this).hasClass('childrenVisible')) {
+                    $(this).removeClass('childrenVisible').addClass('childrenInvisible');
+                }
+                else {
+                    $(this).removeClass('childrenInvisible').addClass('childrenVisible');
+                }
+            });
+        }
+    </script>
+<script src="htmlpreview.min.js"></script><script>HTMLPreview.replaceAssets();</script>
+</body></html>
